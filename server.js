@@ -1,10 +1,14 @@
 // imports
 import express from 'express'
+import 'express-async-errors'
 import dotenv from 'dotenv'
 import colors from 'colors'
 import connectDB from './config/db.js'
 import cors from 'cors'
 import morgan from 'morgan'
+import authRoutes from './routes/authRoutes.js'
+import errorMiddleware from './middlewares/errorMiddleware.js'
+
 
 // config
 dotenv.config()
@@ -22,9 +26,10 @@ app.use(morgan('dev'))
 
 
 // routes
-app.get('/',(req,res)=>{
-    res.send('Welcome')
-})
+app.use('/api/v1/auth',authRoutes)
+
+// validatin middleware
+app.use(errorMiddleware)
 
 // port 
 const PORT=process.env.PORT || 8080
