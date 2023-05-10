@@ -13,5 +13,10 @@ export const createJobController=async(req,res,next)=>{
 }
 
 export const getAllJobsController=async(req,res,next)=>{
+    const jobs=await jobModel.find({createdBy:req.user.userId})
+    res.status(200).json({
+        totlaJobs:jobs.length,
+        jobs
 
+    })
 }
