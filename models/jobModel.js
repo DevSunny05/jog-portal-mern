@@ -22,7 +22,7 @@ const jobSchema=new mongoose.Schema({
     },
     location:{
         type:String,
-        default:'Nagpur',
+        default:'India',
         required:[true,'location is required'],
     },
     createdBy:{

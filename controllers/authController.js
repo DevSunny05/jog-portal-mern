@@ -40,6 +40,7 @@ export const registerController=async(req,res,next)=>{
 
 export const loginController=async(req,res,next)=>{
     const {email,password}=req.body
+    console.log('222222')
 
     if(!email || !password){
         next('Please provide all the fields')

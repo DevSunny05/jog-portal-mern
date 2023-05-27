@@ -11,6 +11,7 @@ export const createJobController=async(req,res,next)=>{
     const job=await jobModel.create(req.body)
     res.status(201).json({job})
 }
+
 // get jobs controller
 export const getAllJobsController=async(req,res,next)=>{
     const jobs=await jobModel.find({createdBy:req.user.userId})
@@ -49,5 +50,27 @@ export const updateJobController=async(req,res,next)=>{
     res.status(200).json({
         success:true,
         updatedJob
+    })
+}
+
+// delete job || delete
+export const deleteJobController=async(req,res,next)=>{
+    const {id}=req.params
+    const job=await jobModel.findOne({_id:id})
+
+    if(!job){
+        next(`No jobs found with this id ${id}`)
+    }
+
+    if(! req.user.userId === job.createdBy.toString() ){
+        next("You are not authorize to delete this job")
+        return
+    }
+
+    await job.deleteOne()
+
+    res.status(200).json({
+        success:'true',
+        message:'Success ,Job deleted'
     })
 }
