@@ -7,6 +7,6 @@ const router=express.Router()
 router.post('/register',registerController)
 
 // login || post
-router.post('/login',userAuth,loginController)
+router.post('/login',loginController)
 
 export default router;
