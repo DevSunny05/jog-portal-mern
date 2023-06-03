@@ -10,6 +10,9 @@ import authRoutes from './routes/authRoutes.js'
 import errorMiddleware from './middlewares/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
 import jobRoutes from './routes/jobsRoute.js'
+import helmet from 'helmet'
+import xss from 'xss-clean'
+import expressMongoSanitize from 'express-mongo-sanitize'
 
 
 // config
@@ -22,6 +25,9 @@ connectDB()
 const app=express()
 
 // middleware
+app.use(expressMongoSanitize())
+app.use(helmet())
+app.use(xss())
 app.use(express.json())
 app.use(cors())
 app.use(morgan('dev'))
