@@ -1,5 +1,7 @@
 // imports
 import express from 'express'
+import  swaggerUi from 'swagger-ui-express'
+import swaggerJSDoc from 'swagger-jsdoc'
 import 'express-async-errors'
 import dotenv from 'dotenv'
 import colors from 'colors'
@@ -21,6 +23,26 @@ dotenv.config()
 // mongodb connections
 connectDB()
 
+// swagger api config
+const options={
+    definition:{
+        openapi:'3.0.0',
+    info:{
+        title:'job portal application',
+        description:'mern job portal app'
+    },
+    servers:[
+        {
+            url:'http://localhost:8080'
+        }
+    ]
+    },
+    apis:['./routes/*.js']
+    
+}
+
+const spec=swaggerJSDoc(options)
+
 // rest object
 const app=express()
 
@@ -37,6 +59,9 @@ app.use(morgan('dev'))
 app.use('/api/v1/auth',authRoutes)
 app.use('/api/v1/user',userRoutes)
 app.use('/api/v1/job',jobRoutes)
+
+// homeroutes
+app.use('/api-doc',swaggerUi.serve,swaggerUi.setup(spec))
 
 // validatin middleware
 app.use(errorMiddleware)

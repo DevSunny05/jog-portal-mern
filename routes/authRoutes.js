@@ -12,6 +12,9 @@ const limiter=rateLimit({
 })
 
 const router=express.Router()
+
+
+ 
 // register || post
 router.post('/register',limiter,registerController)
 
