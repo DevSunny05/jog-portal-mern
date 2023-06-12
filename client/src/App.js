@@ -8,6 +8,8 @@ import Dashboard from './pages/Dashboard';
 import NotFoundPage from './pages/NotFoundPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PrivateRoutes from './components/routes/PrivateRoutes';
+import PublicRoutes from './components/routes/PublicRoutes';
 
 function App() {
   return (
@@ -15,10 +17,10 @@ function App() {
     <ToastContainer/>
     <Routes>
         
-        <Route path='/' element={<HomePage/>}/>
-        <Route path='/login' element={<LoginPage/>}/>
-        <Route path='/register' element={<RegisterPage/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/' element={<PublicRoutes><HomePage/></PublicRoutes>}/>
+        <Route path='/login' element={<PublicRoutes><LoginPage/></PublicRoutes>}/>
+        <Route path='/register' element={<PublicRoutes><RegisterPage/></PublicRoutes>}/>
+        <Route path='/dashboard' element={<PrivateRoutes><Dashboard/></PrivateRoutes>}/>
         <Route path='*' element={<NotFoundPage/>}/>
     </Routes>
     
